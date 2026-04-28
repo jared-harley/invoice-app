@@ -1,0 +1,18 @@
+import "devextreme/dist/css/dx.light.css";
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+
+import config from "devextreme/core/config";
+import App from "./App.vue";
+import router from "./router";
+
+config({
+  licenseKey: import.meta.env.VITE_DEVEXTREME_KEY
+});
+
+const app = createApp(App);
+
+app.use(createPinia());
+app.use(router);
+
+app.mount("#app");

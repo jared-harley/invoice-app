@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #2c3e50; margin: 40px; }
+        .header { border-bottom: 3px solid #232f3e; padding-bottom: 20px; margin-bottom: 30px; position: relative; }
+        .title { color: #232f3e; font-size: 28pt; font-weight: bold; margin: 0; }
+        .company { position: absolute; right: 0; top: 0; text-align: right; color: #7f8c8d; font-size: 10pt; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .table th { background-color: #232f3e; color: white; padding: 12px; text-align: left; }
+        .table td { border-bottom: 1px solid #bdc3c7; padding: 12px; }
+        .total { text-align: right; font-size: 14pt; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">INVOICE</h1>
+        <div class="company">
+            <strong><%= profile.company_name %></strong><br>
+            <%= profile.address_line %><br>
+            <%= profile.email %>
+        </div>
+        <div style="margin-top: 10px;">
+            <strong>Invoice #:</strong> <%= invoice.invoice_number %><br>
+            <strong>Date:</strong> <%= new Date(invoice.issue_date).toLocaleDateString() %>
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 30px;">
+        <strong>Billed To:</strong><br>
+        <%= client.name %><br>
+        <%= client.billing_address %>
+    </div>
+
+    <table class="table">
+        <tr><th>Description</th><th>Qty</th><th>Rate</th><th>Total</th></tr>
+        <% items.forEach(function(item) { %>
+            <tr>
+                <td><%= item.description %></td>
+                <td><%= item.quantity %></td>
+                <td>$<%= parseFloat(item.unit_price).toFixed(2) %></td>
+                <td>$<%= parseFloat(item.total_price).toFixed(2) %></td>
+            </tr>
+        <% }); %>
+    </table>
+
+    <div class="total">
+        Total Amount: $<%= parseFloat(invoice.total_amount).toFixed(2) %>
+    </div>
+</body>
+</html>
