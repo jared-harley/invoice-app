@@ -48,8 +48,9 @@ import axios from 'axios';
 import InvoiceItemsGrid from './InvoiceItemsGrid.vue';
 import { useInvoiceStore } from '@/stores/invoiceStore';
 
-const INVOICE_API = 'http://localhost:3000/api/invoices';
-const CLIENT_API = 'http://localhost:3000/api/clients';
+// Dynamically inject the API URLs from .env
+const INVOICE_API = `${import.meta.env.VITE_API_URL}/invoices`;
+const CLIENT_API = `${import.meta.env.VITE_API_URL}/clients`;
 
 const invoiceStore = useInvoiceStore();
 

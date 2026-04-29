@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const useInvoiceStore = defineStore('invoiceStore', {
   state: () => ({
     invoices: [],
@@ -11,7 +13,7 @@ export const useInvoiceStore = defineStore('invoiceStore', {
     async fetchInvoices() {
       this.isLoading = true;
       try {
-        const response = await axios.get('http://localhost:3000/api/invoices');
+        const response = await axios.get(`${API_URL}/invoices`);
         this.invoices = response.data;
       } catch (error) {
         console.error("Failed to fetch invoices:", error);

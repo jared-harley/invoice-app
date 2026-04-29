@@ -51,11 +51,11 @@ import {
 } from 'devextreme-vue/data-grid';
 import CustomStore from 'devextreme/data/custom_store';
 import axios from 'axios';
-import 'devextreme/ui/text_area'; // Fix for tree-shaking we learned earlier!
+import 'devextreme/ui/text_area';
 
-const API_URL = 'http://localhost:3000/api/clients';
+// Dynamically inject the API URL from .env
+const API_URL = `${import.meta.env.VITE_API_URL}/clients`;
 
-// The CustomStore manages all DataGrid state and API calls
 const clientStore = new CustomStore({
   key: 'id',
   load: async () => {

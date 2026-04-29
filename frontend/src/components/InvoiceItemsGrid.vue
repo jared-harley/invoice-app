@@ -44,7 +44,9 @@ import { useInvoiceStore } from '@/stores/invoiceStore';
 
 const props = defineProps({ invoiceId: { type: Number, required: true } });
 const invoiceStore = useInvoiceStore(); 
-const API_URL = `http://localhost:3000/api/invoices/${props.invoiceId}/items`;
+
+// Dynamically inject the API URL from .env
+const API_URL = `${import.meta.env.VITE_API_URL}/invoices/${props.invoiceId}/items`;
 
 const itemStore = new CustomStore({
   key: 'id',

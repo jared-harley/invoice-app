@@ -34,10 +34,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { DxForm, DxItem, DxRequiredRule, DxEmailRule, DxButtonItem } from 'devextreme-vue/form';
-
-// Import the missing TextArea module so the form can render it!
 import 'devextreme/ui/text_area'; 
 import axios from 'axios';
+
+// Base API URL for profiles
+const PROFILE_API = `${import.meta.env.VITE_API_URL}/profile`;
 
 const profileData = ref({
   company_name: '',
@@ -49,9 +50,8 @@ const profileData = ref({
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/profile');
+    const response = await axios.get(PROFILE_API);
     if (response.data.id) {
-      // Fixed: Use .value instead of .ref
       profileData.value = response.data; 
     }
   } catch (error) {
@@ -65,7 +65,7 @@ const saveButtonOptions = {
   useSubmitBehavior: false,
   onClick: async () => {
     try {
-      await axios.post('http://localhost:3000/api/profile', profileData.value);
+      await axios.post(PROFILE_API, profileData.value);
       alert('Profile updated successfully!');
     } catch (error) {
       alert('Error saving profile');

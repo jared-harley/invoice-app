@@ -11,7 +11,12 @@ const invoiceRoutes = require('./routes/invoiceRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Vite's default port
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json()); // Allows us to parse JSON bodies
 app.use('/api/profile', profileRoutes);
 app.use('/api/clients', clientRoutes);
